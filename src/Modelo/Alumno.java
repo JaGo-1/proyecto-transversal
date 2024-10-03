@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 
 public class Alumno {
-    int idAlumno;
+    int idAlumno =-1;
     String apellido;
     String nombre;
     LocalDate fechaNac;
@@ -15,7 +15,7 @@ public class Alumno {
     }
 
     public Alumno(int idAlumno, String apellido, String nombre, LocalDate fechaNac, boolean activo) {
-        this.idAlumno = idAlumno;
+        this.idAlumno = -1;
         this.apellido = apellido;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
