@@ -6,12 +6,21 @@ import java.time.LocalDate;
 
 public class Alumno {
     int idAlumno =-1;
+    int dni;
     String apellido;
     String nombre;
     LocalDate fechaNac;
     boolean activo;
 
     public Alumno() {
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public Alumno(int idAlumno, String apellido, String nombre, LocalDate fechaNac, boolean activo) {

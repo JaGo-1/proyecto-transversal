@@ -13,7 +13,7 @@ public class Main {
         Conexion conexion = new Conexion();
         
        
-        Connection con = conexion.buscarconexion();
+        Connection con = conexion.getConexion();
         
        
         if (con != null) {
