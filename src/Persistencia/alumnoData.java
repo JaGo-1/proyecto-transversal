@@ -50,7 +50,7 @@ public class alumnoData {
 
             while (rs.next()) {
                 Alumno alumno = new Alumno();
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setIdAlumno(rs.getInt("id_alumno"));
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
