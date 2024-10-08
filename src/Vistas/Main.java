@@ -4,6 +4,7 @@ package Vistas;
 import Persistencia.alumnoData;
 import Modelo.Alumno;
 import Persistencia.Conexion;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.sql.Connection;
 import java.util.List;
 
@@ -41,6 +42,11 @@ public class Main {
         } else {
             System.out.println("No se pudo conectar a la base de datos.");
         }
+        
+        FlatDarkLaf.setup();
+        Principal frame = new Principal();
+        frame.setVisible(true);
+       
     }
 }
 
