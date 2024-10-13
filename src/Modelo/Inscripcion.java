@@ -8,12 +8,14 @@ public class Inscripcion {
     Alumno alumno;
     Materia materia;
     double nota;
+    int anio;
 
-    public Inscripcion(int idInscripcion, Alumno alumno, Materia materia, double nota) {
+    public Inscripcion(int idInscripcion, Alumno alumno, Materia materia, double nota, int anio) {
         this.idInscripcion = idInscripcion;
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
+        this.anio = anio;
     }
 
     public Inscripcion(Alumno alumno, Materia materia, double nota) {
@@ -60,6 +62,15 @@ public class Inscripcion {
     public void setNota(double nota) {
         this.nota = nota;
     }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+    
     
     
 }
