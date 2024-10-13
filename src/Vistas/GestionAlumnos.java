@@ -35,7 +35,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         dni_texto = new javax.swing.JLabel();
         apellido_jTextField = new javax.swing.JTextField();
         documento_jTextField = new javax.swing.JTextField();
-        estado_jComboBox = new javax.swing.JComboBox<>();
         nombre_jTextField = new javax.swing.JTextField();
         estado_texto = new javax.swing.JLabel();
         apellido_texto = new javax.swing.JLabel();
@@ -48,6 +47,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         eliminar_btn = new javax.swing.JButton();
         label_titulo = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         jButton4.setText("jButton1");
 
@@ -64,8 +64,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 documento_jTextFieldActionPerformed(evt);
             }
         });
-
-        estado_jComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         nombre_jTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -129,6 +127,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         label_titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         label_titulo.setText("Gestión de alumnos");
 
+        jRadioButton1.setText("Activo");
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -166,9 +166,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                                             .addComponent(documento_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(estado_jComboBox, 0, 206, Short.MAX_VALUE)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioButton1)
+                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(154, 154, 154)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buscar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -177,7 +177,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(label_titulo)
                 .addGap(97, 97, 97)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +193,10 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombre_texto))
-                .addGap(39, 39, 39)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estado_jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(estado_texto))
+                .addGap(47, 47, 47)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(estado_texto)
+                    .addComponent(jRadioButton1))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
@@ -256,12 +256,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel dni_texto;
     private javax.swing.JTextField documento_jTextField;
     private javax.swing.JButton eliminar_btn;
-    private javax.swing.JComboBox<String> estado_jComboBox;
     private javax.swing.JLabel estado_texto;
     private javax.swing.JLabel fechNac_texto;
     private javax.swing.JButton guardar_btn;
     private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel label_titulo;
     private javax.swing.JTextField nombre_jTextField;
     private javax.swing.JLabel nombre_texto;
