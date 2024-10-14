@@ -1,20 +1,26 @@
-
 package Vistas;
 
+import Modelo.Alumno;
+import Persistencia.alumnoData;
 import java.beans.PropertyVetoException;
+import java.time.LocalDate;
+import java.time.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-
+import javax.swing.JOptionPane;
 
 public class GestionAlumnos extends javax.swing.JInternalFrame {
 
-   
+    private alumnoData alumnoData = new alumnoData();
+    private Alumno alumnoActual = null;
+
     public GestionAlumnos() {
         initComponents();
         this.setResizable(false);
         this.setMaximizable(false);
-        
+
         //internalFrame siempre maximizado
         try {
             this.setMaximum(true);
@@ -22,8 +28,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             Logger.getLogger(GestionAlumnos.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFrameIcon(new ImageIcon());
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -46,8 +51,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         guardar_btn = new javax.swing.JButton();
         eliminar_btn = new javax.swing.JButton();
         label_titulo = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        fecha_jDateChooser = new com.toedter.calendar.JDateChooser();
+        estado_jRadioButton1 = new javax.swing.JRadioButton();
 
         jButton4.setText("jButton1");
 
@@ -83,6 +88,11 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         buscar_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busqueda.png"))); // NOI18N
         buscar_btn.setBorder(null);
         buscar_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscar_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscar_btnActionPerformed(evt);
+            }
+        });
 
         salir_btn.setBackground(new java.awt.Color(51, 51, 51));
         salir_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -127,7 +137,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         label_titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         label_titulo.setText("Gestión de alumnos");
 
-        jRadioButton1.setText("Activo");
+        estado_jRadioButton1.setText("Activo");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -167,8 +177,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton1)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(estado_jRadioButton1)
+                                            .addComponent(fecha_jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(154, 154, 154)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buscar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -196,14 +206,14 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGap(47, 47, 47)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(estado_texto)
-                    .addComponent(jRadioButton1))
+                    .addComponent(estado_jRadioButton1))
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(fechNac_texto))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fecha_jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(75, 75, 75)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nuevo_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,19 +243,88 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
         // TODO add your handling code here:
+        documento_jTextField.setText("");
+        apellido_jTextField.setText("");
+        nombre_jTextField.setText("");
+        estado_jRadioButton1.setSelected(true);
+        fecha_jDateChooser.setDate(new Date());
+        alumnoActual = null;
     }//GEN-LAST:event_nuevo_btnActionPerformed
 
     private void guardar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_btnActionPerformed
         // TODO add your handling code here:
+        try {
+            int dni = Integer.parseInt(documento_jTextField.getText());
+            String apellido = apellido_jTextField.getText();
+            String nombre = nombre_jTextField.getText();
+            if (nombre.isEmpty() || apellido.isEmpty()) {
+                JOptionPane.showConfirmDialog(this, "Los campos no pueden estar vacio.");
+                return;
+            }
+            Boolean estado = estado_jRadioButton1.isSelected();
+            java.util.Date date = fecha_jDateChooser.getDate();
+            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if (alumnoActual == null) {
+                alumnoActual = new Alumno(dni, apellido, nombre, fecha, estado);
+                alumnoData.guardarAlumno(alumnoActual);
+                JOptionPane.showConfirmDialog(this, "Alumno inscripto.");
+            } else {
+                alumnoActual.setDni(dni);
+                alumnoActual.setApellido(apellido);
+                alumnoActual.setNombre(nombre);
+                alumnoActual.setFechaNac(fecha);
+                alumnoData.modificarAlumno(alumnoActual);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(this, "Usted debe ingresar un numero valido.");
+
+        }
     }//GEN-LAST:event_guardar_btnActionPerformed
 
     private void eliminar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_btnActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        if (alumnoActual != null) {
+            alumnoData.bajaFisicaAlumno(alumnoActual.getIdAlumno());
+            JOptionPane.showMessageDialog(this, "Alumno eliminado con exito.");
+
+            documento_jTextField.setText("");
+            apellido_jTextField.setText("");
+            nombre_jTextField.setText("");
+            estado_jRadioButton1.setSelected(true);
+            fecha_jDateChooser.setDate(new Date());
+            alumnoActual = null;
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay alumno seleccionado.");
+        }
     }//GEN-LAST:event_eliminar_btnActionPerformed
 
     private void documento_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documento_jTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_documento_jTextFieldActionPerformed
+
+    private void buscar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btnActionPerformed
+        // TODO add your handling code here:
+        try {
+            int dni = Integer.parseInt(documento_jTextField.getText());
+            alumnoActual = alumnoData.buscarAlumnoPorDni(dni);
+
+            if (alumnoActual != null) {
+
+                apellido_jTextField.setText(alumnoActual.getApellido());
+                nombre_jTextField.setText(alumnoActual.getNombre());
+                estado_jRadioButton1.setSelected(alumnoActual.isActivo());
+                LocalDate lc = alumnoActual.getFechaNac();
+                java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                fecha_jDateChooser.setDate(date);
+
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(this, "Usted debe ingresar un numero valido.");
+        }
+
+    }//GEN-LAST:event_buscar_btnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -256,12 +335,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel dni_texto;
     private javax.swing.JTextField documento_jTextField;
     private javax.swing.JButton eliminar_btn;
+    private javax.swing.JRadioButton estado_jRadioButton1;
     private javax.swing.JLabel estado_texto;
     private javax.swing.JLabel fechNac_texto;
+    private com.toedter.calendar.JDateChooser fecha_jDateChooser;
     private javax.swing.JButton guardar_btn;
     private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JLabel label_titulo;
     private javax.swing.JTextField nombre_jTextField;
     private javax.swing.JLabel nombre_texto;

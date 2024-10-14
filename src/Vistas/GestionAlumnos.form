@@ -86,8 +86,8 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jDateChooser1" min="-2" pref="206" max="-2" attributes="0"/>
+                                              <Component id="estado_jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="fecha_jDateChooser" min="-2" pref="206" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
                                       </Group>
@@ -128,7 +128,7 @@
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="estado_texto" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="estado_jRadioButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -137,7 +137,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="fecha_jDateChooser" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
@@ -232,6 +232,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscar_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="salir_btn">
           <Properties>
@@ -309,9 +312,9 @@
             <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de alumnos"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="fecha_jDateChooser">
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+        <Component class="javax.swing.JRadioButton" name="estado_jRadioButton1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Activo"/>
           </Properties>
