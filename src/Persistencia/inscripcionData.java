@@ -124,7 +124,8 @@ public class inscripcionData {
             ps.close();
             
         } catch (SQLException ex){
-            
+            JOptionPane.showMessageDialog(null, "error al cargar la tabla inscripcion");
+            ex.printStackTrace();
         }
         return materias; 
     }
@@ -179,7 +180,7 @@ public class inscripcionData {
     public void actualizarNota(int id_alumno, int id_materia, double nota,int año){
         
         
-        String sql="UPDATE inscripcion  SET nota = ' WHERE id_alumno = ? and id_materia";
+        String sql="UPDATE inscripcion  SET nota = ? WHERE id_alumno = ? and id_materia";
         try {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setDouble(1, nota);

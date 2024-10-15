@@ -61,7 +61,7 @@ public class Main {
          Materia BasesdeDatos=md.buscarMateria(2);
          Inscripcion insc=new Inscripcion(Javier,BasesdeDatos,8);
          id.guardarInscripcion(insc);
-         id.actualizarNota(7,2 ,7,2);
+         id.actualizarNota(0, 0, 0, 0);
          id.borrarInscripcionMateriaAlumno(7,2 );
          
          for(Inscripcion inscripcion:id.obtenerInscripciones()){
