@@ -223,19 +223,19 @@ public class Inscripciones extends javax.swing.JInternalFrame {
 
     private void guardar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_btnActionPerformed
        
-     int filaseleccionada=jTmaterias.getSelectedRow();
-        
-        if (filaseleccionada != -1){
-    
-    Alumno a= (Alumno) jComboBox1.getSelectedItem();
-    int id_materia=(Integer) modelo.getValueAt(filaseleccionada,0);
-    String nombre= (String) modelo.getValueAt(filaseleccionada,1);
-    int año=(Integer) modelo.getValueAt(filaseleccionada, 2);
-    Materia m= new Materia(id_materia,nombre,año,true);
-    Inscripcion i=new Inscripcion(a,m,0);
-    inscData.guardarInscripcion(i);
-            borrarfilas();
-    }
+//     int filaseleccionada=jTmaterias.getSelectedRow();
+//        
+//        if (filaseleccionada != -1){
+//    
+//    Alumno a= (Alumno) jComboBox1.getSelectedItem();
+//    int id_materia=(Integer) modelo.getValueAt(filaseleccionada,0);
+//    String nombre= (String) modelo.getValueAt(filaseleccionada,1);
+//    int año=(Integer) modelo.getValueAt(filaseleccionada, 2);
+//    Materia m= new Materia(id_materia,nombre,año,true);
+//    Inscripcion i=new Inscripcion(a,m,0);
+//    inscData.guardarInscripcion(i);
+//            borrarfilas();
+//    }
     }//GEN-LAST:event_guardar_btnActionPerformed
 
     private void eliminar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_btnActionPerformed

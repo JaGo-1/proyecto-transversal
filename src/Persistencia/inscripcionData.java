@@ -14,11 +14,12 @@ import javax.swing.JOptionPane;
 
 public class inscripcionData {
     private Connection con = null;
-    private materiaData md;
-    private alumnoData ad;
+    private materiaData md = new materiaData();
+    private alumnoData ad = new alumnoData();
 
     public inscripcionData() {
         this.con = Conexion.getConexion();
+   
     }
     
     public void guardarInscripcion(Inscripcion insc){
@@ -56,6 +57,10 @@ public class inscripcionData {
             while (rs.next()){
                 Inscripcion i = new Inscripcion();
                 i.setIdInscripcion(rs.getInt("id_inscripcion"));
+//                Alumno a = ad.buscarAlumno(rs.getInt("id_alumno"));
+//                Materia m = md.buscarMateria(rs.getInt("id_materia"));
+//                i.setAlumno(a);
+//                i.setMateria(m);
                 i.setAlumno(ad.buscarAlumno(rs.getInt("id_alumno")));
                 i.setMateria(md.buscarMateria(rs.getInt("id_materia")));
                 i.setNota(rs.getDouble("nota"));
@@ -69,6 +74,7 @@ public class inscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Ocurrió un problema al intentar acceder a la tabla alumno "+ ex.getMessage());
         }
+
         return insc;
     
     }
@@ -105,9 +111,9 @@ public class inscripcionData {
         
         ArrayList <Materia> materias = new ArrayList<>();
         
-        String sql = "SELECT inscripcion.id_materia, nombre, año FROM inscripcion,"
+        String sql = "SELECT inscripcion.id_materia, nombre, inscripcion.año FROM inscripcion,"
                 + "materia WHERE inscripcion.id_materia = materia.id_materia" +
-                "AND inscripcion.id_alumno = ?;";
+                " AND inscripcion.id_alumno = ?;";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -165,7 +171,7 @@ public class inscripcionData {
             ps.setInt(2, id_materia);
             int filas=ps.executeUpdate();
             if(filas>0){
-            JOptionPane.showMessageDialog(null,"inscripcion borradas");
+            JOptionPane.showMessageDialog(null,"Inscripción borrada");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -177,7 +183,7 @@ public class inscripcionData {
         
     
     
-    public void actualizarNota(int id_alumno, int id_materia, double nota,int año){
+    public void actualizarNota(int id_alumno, int id_materia, double nota){
         
         
         String sql="UPDATE inscripcion  SET nota = ? WHERE id_alumno = ? and id_materia";
@@ -186,10 +192,9 @@ public class inscripcionData {
             ps.setDouble(1, nota);
             ps.setInt(2, id_alumno);
             ps.setInt(3, id_materia);
-            ps.setInt(4, año);
             int filas=ps.executeUpdate();
             if(filas>0){
-            JOptionPane.showMessageDialog(null,"nota actualizada");
+            JOptionPane.showMessageDialog(null,"Nota actualizada");
             }
             ps.close();
             

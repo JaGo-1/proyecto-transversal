@@ -53,7 +53,7 @@
                       <Component id="dni_texto" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" min="-2" pref="360" max="-2" attributes="0"/>
+                          <Component id="comboAlumnos" min="-2" pref="360" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
@@ -76,7 +76,7 @@
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dni_texto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="comboAlumnos" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="320" max="-2" attributes="0"/>
@@ -141,7 +141,7 @@
             <Property name="text" type="java.lang.String" value="Carga de Notas"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="comboAlumnos">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>

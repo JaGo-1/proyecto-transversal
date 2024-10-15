@@ -18,10 +18,11 @@ public class Inscripcion {
         this.anio = anio;
     }
 
-    public Inscripcion(Alumno alumno, Materia materia, double nota) {
+    public Inscripcion(Alumno alumno, Materia materia, double nota, int anio) {
         this.alumno = alumno;
         this.materia = materia;
         this.nota = nota;
+        this.anio = anio;
     }
 
     public Inscripcion() {
