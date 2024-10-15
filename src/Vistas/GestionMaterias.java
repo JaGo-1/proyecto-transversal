@@ -23,8 +23,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         }
         this.setFrameIcon(new ImageIcon());
         
-        
-    }
+      
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -218,14 +217,26 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
 
     private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
         // TODO add your handling code here:
+        codigo_texto.setText("");  
+        nombre_jTextField.setText("");  
+        apellido_jTextField.setText(""); 
+        documento_jTextField.setText("");  
+        estado_jComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_nuevo_btnActionPerformed
 
     private void guardar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_btnActionPerformed
         // TODO add your handling code here:
+        String codigo = codigo_texto.getText();
+        String nombre = nombre_jTextField.getText();
+        String apellido = apellido_jTextField.getText();
+        String documento = documento_jTextField.getText();
+        String estado = estado_jComboBox.getSelectedItem().toString();
     }//GEN-LAST:event_guardar_btnActionPerformed
 
     private void eliminar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_btnActionPerformed
         // TODO add your handling code here:
+           String codigo = codigo_texto.getText();
+           System.out.println("Eliminado: " + codigo);
     }//GEN-LAST:event_eliminar_btnActionPerformed
 
     private void documento_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documento_jTextFieldActionPerformed
