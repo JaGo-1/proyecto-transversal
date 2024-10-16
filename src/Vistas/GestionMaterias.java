@@ -1,10 +1,12 @@
 
 package Vistas;
 
+import Persistencia.materiaData;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 public class GestionMaterias extends javax.swing.JInternalFrame {
@@ -12,6 +14,8 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
    
     public GestionMaterias() {
         initComponents();
+        materiaData = new materiaData();  // Inicializamos la instancia de materiaData
+
         this.setResizable(false);
         this.setMaximizable(false);
         
@@ -23,7 +27,7 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         }
         this.setFrameIcon(new ImageIcon());
         
-      
+      }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -224,6 +228,8 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         estado_jComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_nuevo_btnActionPerformed
 
+    private materiaData materiaData;  // Instancia de la clase materiaData
+
     private void guardar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_btnActionPerformed
         // TODO add your handling code here:
         String codigo = codigo_texto.getText();
@@ -231,12 +237,35 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
         String apellido = apellido_jTextField.getText();
         String documento = documento_jTextField.getText();
         String estado = estado_jComboBox.getSelectedItem().toString();
+        
+        
+        
     }//GEN-LAST:event_guardar_btnActionPerformed
 
     private void eliminar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_btnActionPerformed
         // TODO add your handling code here:
-           String codigo = codigo_texto.getText();
-           System.out.println("Eliminado: " + codigo);
+          String codigoText = codigo_texto.getText().trim();
+
+  
+    if (codigoText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El código no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+   
+    try {
+        int codigo = Integer.parseInt(codigoText);  // Conversión de texto a número
+        
+        materiaData.eliminarMateria(codigo);
+        JOptionPane.showMessageDialog(this, "Materia eliminada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (NumberFormatException e) {
+        // Si no se puede convertir el texto a número, mostramos un error
+        JOptionPane.showMessageDialog(this, "Por favor ingrese un código numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        // Capturamos cualquier otro error (base de datos, etc.)
+        JOptionPane.showMessageDialog(this, "Error al eliminar la materia: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_eliminar_btnActionPerformed
 
     private void documento_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documento_jTextFieldActionPerformed
