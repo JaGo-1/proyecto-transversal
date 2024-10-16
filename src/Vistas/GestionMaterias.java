@@ -26,8 +26,8 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
             Logger.getLogger(GestionMaterias.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFrameIcon(new ImageIcon());
-        
-      }
+         }                                         
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -291,4 +291,5 @@ public class GestionMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JButton nuevo_btn;
     private javax.swing.JButton salir_btn;
     // End of variables declaration//GEN-END:variables
+
 }
