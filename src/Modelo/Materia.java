@@ -56,10 +56,15 @@ public class Materia {
         this.activo = activo;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Materia{" + '}';
+//    }
+    
     @Override
-    public String toString() {
-        return "Materia{" + '}';
-    }
+        public String toString(){
+            return this.nombre;
+        }
     
     
 }

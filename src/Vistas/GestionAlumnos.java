@@ -28,7 +28,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             Logger.getLogger(GestionAlumnos.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFrameIcon(new ImageIcon());
-
+        
+        fecha_jDateChooser.getDateEditor().setEnabled(false);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -64,11 +66,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         apellido_jTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         documento_jTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        documento_jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                documento_jTextFieldActionPerformed(evt);
-            }
-        });
 
         nombre_jTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -87,7 +84,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         buscar_btn.setBackground(new java.awt.Color(36, 37, 38));
         buscar_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/busqueda.png"))); // NOI18N
         buscar_btn.setBorder(null);
-        buscar_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscar_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buscar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscar_btnActionPerformed(evt);
@@ -243,6 +240,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
     private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
         // TODO add your handling code here:
+        estado_jRadioButton1.setEnabled(true);
         documento_jTextField.setText("");
         apellido_jTextField.setText("");
         nombre_jTextField.setText("");
@@ -263,12 +261,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
             Boolean estado = estado_jRadioButton1.isSelected();
             java.util.Date date = fecha_jDateChooser.getDate();
-            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();    
 
             if (alumnoActual == null) {
                 alumnoActual = new Alumno(dni, apellido, nombre, fecha, estado);
                 alumnoData.guardarAlumno(alumnoActual);
-                JOptionPane.showConfirmDialog(this, "Alumno inscripto.");
+                JOptionPane.showMessageDialog(this, "Alumno registrado correctamente");
             } else {
                 alumnoActual.setDni(dni);
                 alumnoActual.setApellido(apellido);
@@ -277,8 +275,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 alumnoData.modificarAlumno(alumnoActual);
             }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showConfirmDialog(this, "Usted debe ingresar un numero valido.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Verifique los datos ingresados.");
 
         }
     }//GEN-LAST:event_guardar_btnActionPerformed
@@ -300,10 +298,6 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_eliminar_btnActionPerformed
 
-    private void documento_jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documento_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_documento_jTextFieldActionPerformed
-
     private void buscar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btnActionPerformed
         // TODO add your handling code here:
         try {
@@ -311,7 +305,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             alumnoActual = alumnoData.buscarAlumnoPorDni(dni);
 
             if (alumnoActual != null) {
-
+                estado_jRadioButton1.setEnabled(false);
                 apellido_jTextField.setText(alumnoActual.getApellido());
                 nombre_jTextField.setText(alumnoActual.getNombre());
                 estado_jRadioButton1.setSelected(alumnoActual.isActivo());

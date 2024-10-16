@@ -1,14 +1,26 @@
 
 package Vistas;
 
+import Modelo.Materia;
+import Persistencia.inscripcionData;
+import Persistencia.materiaData;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
-
+    
+    private materiaData md = new materiaData();
+    private inscripcionData id = new inscripcionData();
+    
+    DefaultTableModel tabla = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
    
     public ListadoAlumnosPorMateria() {
         initComponents();
@@ -23,6 +35,8 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         }
         this.setFrameIcon(new ImageIcon());
         
+        llenarCombo();
+        crearCabecera();
         
     }
 
@@ -35,16 +49,16 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         dni_texto = new javax.swing.JLabel();
         salir_btn = new javax.swing.JButton();
         label_titulo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        materiaCombo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaMaterias_jTable = new javax.swing.JTable();
 
         jButton4.setText("jButton1");
 
         bg.setBackground(new java.awt.Color(36, 37, 38));
 
         dni_texto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dni_texto.setText("Seleccione un alumno:");
+        dni_texto.setText("Seleccione una materia:");
 
         salir_btn.setBackground(new java.awt.Color(51, 51, 51));
         salir_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -60,7 +74,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         label_titulo.setText("Listado de Alumnos por Materia");
         label_titulo.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMaterias_jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -71,7 +85,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaMaterias_jTable);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -84,7 +98,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
                     .addComponent(dni_texto)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(208, 208, 208)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(materiaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(salir_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1021, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -98,7 +112,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
                 .addGap(53, 53, 53)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dni_texto)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(materiaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
@@ -123,16 +137,27 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
     private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
         this.dispose();
     }//GEN-LAST:event_salir_btnActionPerformed
-
+    
+    private void llenarCombo(){
+        
+    }
+    
+    private void crearCabecera() {
+        tabla.addColumn("ID");
+        tabla.addColumn("DNI");
+        tabla.addColumn("Apellido");
+        tabla.addColumn("Nombre");
+        tablaMaterias_jTable.setModel(tabla);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private javax.swing.JLabel dni_texto;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel label_titulo;
+    private javax.swing.JComboBox<Materia> materiaCombo;
     private javax.swing.JButton salir_btn;
+    private javax.swing.JTable tablaMaterias_jTable;
     // End of variables declaration//GEN-END:variables
 }
