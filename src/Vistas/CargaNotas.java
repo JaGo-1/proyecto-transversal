@@ -1,15 +1,29 @@
 
 package Vistas;
 
+import Modelo.Alumno;
+import Modelo.Inscripcion;
+import Modelo.Materia;
+import Persistencia.alumnoData;
+import Persistencia.inscripcionData;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 
 public class CargaNotas extends javax.swing.JInternalFrame {
+    Inscripcion insc = new Inscripcion();
+    inscripcionData id = new inscripcionData();
+    alumnoData ad = new alumnoData();
 
-   
+    DefaultTableModel tabla = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return c == 2;
+        }
+    };
+
     public CargaNotas() {
         initComponents();
         this.setResizable(false);
@@ -23,6 +37,8 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         }
         this.setFrameIcon(new ImageIcon());
         
+        llenarCombo();
+        crearCabecera();
         
     }
 
@@ -36,9 +52,9 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         salir_btn = new javax.swing.JButton();
         guardar_btn = new javax.swing.JButton();
         label_titulo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboAlumnos = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        materiasCursadas_jTable = new javax.swing.JTable();
 
         jButton4.setText("jButton1");
 
@@ -70,7 +86,13 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         label_titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         label_titulo.setText("Carga de Notas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        comboAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAlumnosActionPerformed(evt);
+            }
+        });
+
+        materiasCursadas_jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -81,7 +103,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(materiasCursadas_jTable);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -94,7 +116,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
                     .addComponent(dni_texto)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(208, 208, 208)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(bgLayout.createSequentialGroup()
                             .addComponent(guardar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,7 +133,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
                 .addGap(53, 53, 53)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dni_texto)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
@@ -140,19 +162,58 @@ public class CargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_salir_btnActionPerformed
 
     private void guardar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_btnActionPerformed
-        // TODO add your handling code here:
+        if (materiasCursadas_jTable.isEditing()) {
+            materiasCursadas_jTable.getCellEditor().stopCellEditing();
+        }
+        
+        Alumno a = (Alumno) comboAlumnos.getSelectedItem();
+        int id_alumno = a.getIdAlumno();
+        
+        for (int i = 0; i < tabla.getRowCount(); i++){
+            int id_materia = (int) tabla.getValueAt(i, 0);
+            double nota = Double.parseDouble(tabla.getValueAt(i,2).toString());
+            
+            id.actualizarNota(id_alumno, id_materia, nota);
+        }
+
     }//GEN-LAST:event_guardar_btnActionPerformed
 
+    private void comboAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAlumnosActionPerformed
+        Alumno a = (Alumno)comboAlumnos.getSelectedItem();
+        
+        llenarTabla(a.getIdAlumno());
+    }//GEN-LAST:event_comboAlumnosActionPerformed
+        
+    private void llenarCombo(){
+        for (Alumno a : ad.obtenerAlumnos()){
+            comboAlumnos.addItem(a);
+        }
+    }
+    
+    private void crearCabecera(){
+        tabla.addColumn("Código");
+        tabla.addColumn("Nombre");
+        tabla.addColumn("Nota");
+        materiasCursadas_jTable.setModel(tabla);
+    }
+    
+    private void llenarTabla(int id_alumno){
+        tabla.setRowCount(0);
+        for (Materia m : id.obtenerMateriasCursadas(id_alumno)){
+            tabla.addRow(new Object[]{m.getIdMateria(), m.getNombre(),0});
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private javax.swing.JComboBox<Alumno> comboAlumnos;
     private javax.swing.JLabel dni_texto;
     private javax.swing.JButton guardar_btn;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel label_titulo;
+    private javax.swing.JTable materiasCursadas_jTable;
     private javax.swing.JButton salir_btn;
     // End of variables declaration//GEN-END:variables
 }

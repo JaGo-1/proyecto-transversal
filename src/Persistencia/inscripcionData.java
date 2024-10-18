@@ -105,8 +105,8 @@ public class inscripcionData {
         
         ArrayList <Materia> materias = new ArrayList<>();
         
-        String sql = "SELECT inscripcion.id_materia, nombre, año FROM inscripcion,"
-                + "materia WHERE inscripcion.id_materia = materia.id_materia" +
+        String sql = "SELECT inscripcion.id_materia, nombre, inscripcion.año FROM inscripcion,"
+                + "materia WHERE inscripcion.id_materia = materia.id_materia " +
                 "AND inscripcion.id_alumno = ?;";
         
         try{
@@ -176,16 +176,15 @@ public class inscripcionData {
         
     
     
-    public void actualizarNota(int id_alumno, int id_materia, double nota,int año){
+    public void actualizarNota(int id_alumno, int id_materia, double nota){
         
         
-        String sql="UPDATE inscripcion  SET nota = ' WHERE id_alumno = ? and id_materia";
+        String sql="UPDATE inscripcion  SET nota = ? WHERE id_alumno = ? and id_materia = ?";
         try {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setDouble(1, nota);
             ps.setInt(2, id_alumno);
             ps.setInt(3, id_materia);
-            ps.setInt(4, año);
             int filas=ps.executeUpdate();
             if(filas>0){
             JOptionPane.showMessageDialog(null,"nota actualizada");
