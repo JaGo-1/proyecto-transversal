@@ -41,6 +41,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         llenarCombo();
         crearCabecera();
         
+        cargarDatosTabla((Materia)materiaCombo.getSelectedItem());
     }
 
     @SuppressWarnings("unchecked")
@@ -76,6 +77,12 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         label_titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         label_titulo.setText("Listado de Alumnos por Materia");
         label_titulo.setToolTipText("");
+
+        materiaCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materiaComboActionPerformed(evt);
+            }
+        });
 
         tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,6 +147,11 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
     private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
         this.dispose();
     }//GEN-LAST:event_salir_btnActionPerformed
+
+    private void materiaComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materiaComboActionPerformed
+        Materia m = (Materia)materiaCombo.getSelectedItem();
+        cargarDatosTabla(m); 
+    }//GEN-LAST:event_materiaComboActionPerformed
     
     private void llenarCombo(){
         materiaCombo.removeAllItems();
@@ -158,14 +170,11 @@ private void borrarFilasTabla() {
     }
     
 }
-    private void cargarDatosTabla() {
+    private void cargarDatosTabla(Materia materiaSeleccionada) {
     borrarFilasTabla();
-    
-    Materia materiaSeleccionada = (Materia) materiaCombo.getSelectedItem();
     
     if (materiaSeleccionada != null) {
         List<Alumno> alumnos = id.obtenerAlumnosXMateria(materiaSeleccionada.getIdMateria());
-        
         for (Alumno alumno : alumnos) {
             Object[] fila = {
                 alumno.getIdAlumno(),

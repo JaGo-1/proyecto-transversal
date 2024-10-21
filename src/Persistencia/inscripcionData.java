@@ -200,8 +200,9 @@ public class inscripcionData {
     
     public List<Alumno> obtenerAlumnosXMateria(int id_materia){
         ArrayList<Alumno> alumnosMateria=new ArrayList<>();
-        String sql="SELECT a.id_alumno,dni,nombre.apellido,fechaNacimiento,estado"
-                        + "FROM inscripcion i , alumno a WHERE i.id_alumno = a.id_alumno AND id_materia = ? AND a.estado = 1";
+       // SELECT alumno.id_alumno,dni,nombre,apellido,fechaNacimiento,estado FROM inscripcion , alumno WHERE inscripcion.id_alumno = alumno.id_alumno AND id_materia = 2 AND alumno.estado = 1;
+        String sql="SELECT alumno.id_alumno,dni,nombre,apellido,fechaNacimiento,estado "
+                        + "FROM inscripcion, alumno WHERE inscripcion.id_alumno = alumno.id_alumno AND id_materia = ? AND alumno.estado = 1";
         try {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setInt(1, id_materia);
@@ -215,13 +216,13 @@ public class inscripcionData {
             alumno.setNombre(rs.getString("nombre"));
             alumno.setDni(rs.getInt("dni"));
             alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
-            alumno.setActivo(rs.getBoolean("1"));
+            alumno.setActivo(rs.getBoolean("estado"));
             
              alumnosMateria.add(alumno);
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al acceder a la tabla");
+            JOptionPane.showMessageDialog(null, "error al acceder a la tabla" + ex.getMessage());
         }
         
         

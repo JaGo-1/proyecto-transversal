@@ -28,15 +28,14 @@ public class Main {
         frame.setVisible(true);
        
 //    //probando metodos//
-    alumnoData ad=new alumnoData();
-    materiaData md=new materiaData();
-    inscripcionData id= new inscripcionData();
-//      
-         Alumno Javier=ad.buscarAlumno(7);
-         Materia BasesdeDatos=md.buscarMateria(2);
-         Inscripcion insc=new Inscripcion(Javier,BasesdeDatos,8);
-         id.guardarInscripcion(insc);
-         id.actualizarNota(7 ,7, 2);
+//    alumnoData ad=new alumnoData();
+//    materiaData md=new materiaData();
+//    inscripcionData id= new inscripcionData();     
+//         Alumno alu =ad.buscarAlumno(2);
+//         Materia mat =md.buscarMateria(1);
+//         Inscripcion insc=new Inscripcion(alu,mat,10);
+//         id.guardarInscripcion(insc);
+//         id.actualizarNota(7 ,7, 2);
 //         id.borrarInscripcionMateriaAlumno(7,2 );
          
 //         for(Inscripcion inscripcion:id.obtenerInscripciones()){
