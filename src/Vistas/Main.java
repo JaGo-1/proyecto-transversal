@@ -32,13 +32,13 @@ public class Main {
     materiaData md=new materiaData();
     inscripcionData id= new inscripcionData();
 //      
-     //    Alumno Javier=ad.buscarAlumno(7);
-     //    Materia BasesdeDatos=md.buscarMateria(2);
-      //   Inscripcion insc=new Inscripcion(Javier,BasesdeDatos,8);
-     //    id.guardarInscripcion(insc);
-//         id.actualizarNota(7,2 ,7,2);
+         Alumno Javier=ad.buscarAlumno(7);
+         Materia BasesdeDatos=md.buscarMateria(2);
+         Inscripcion insc=new Inscripcion(Javier,BasesdeDatos,8);
+         id.guardarInscripcion(insc);
+         id.actualizarNota(7 ,7, 2);
 //         id.borrarInscripcionMateriaAlumno(7,2 );
-//         
+         
 //         for(Inscripcion inscripcion:id.obtenerInscripciones()){
 //         System.out.println("id"+ inscripcion.getIdInscripcion());
 //             System.out.println("Apellido" + inscripcion.getAlumno().getApellido());
@@ -49,8 +49,8 @@ public class Main {
 //         for (Materia materia:id.obtenerMateriasCursadas(7)){
 //             System.out.println("nombre"+ materia.getNombre());
 //    }
-}
-}
+//}
+}}
        
        
     

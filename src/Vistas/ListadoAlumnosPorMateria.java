@@ -1,10 +1,12 @@
 
 package Vistas;
 
+import Modelo.Alumno;
 import Modelo.Materia;
 import Persistencia.inscripcionData;
 import Persistencia.materiaData;
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -17,6 +19,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
     private inscripcionData id = new inscripcionData();
     
     DefaultTableModel tabla = new DefaultTableModel() {
+        @Override
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -51,7 +54,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         label_titulo = new javax.swing.JLabel();
         materiaCombo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMaterias_jTable = new javax.swing.JTable();
+        tablaMaterias = new javax.swing.JTable();
 
         jButton4.setText("jButton1");
 
@@ -74,7 +77,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
         label_titulo.setText("Listado de Alumnos por Materia");
         label_titulo.setToolTipText("");
 
-        tablaMaterias_jTable.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -85,7 +88,7 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaMaterias_jTable);
+        jScrollPane1.setViewportView(tablaMaterias);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -139,15 +142,48 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_salir_btnActionPerformed
     
     private void llenarCombo(){
-        
+        materiaCombo.removeAllItems();
+    
+    List<Materia> materias = md.listarMaterias();
+    
+    for (Materia materia : materias) {
+        materiaCombo.addItem(materia);
     }
+    }
+    
+private void borrarFilasTabla() {
+    int rowCount = tabla.getRowCount();
+    for (int i = rowCount - 1; i >= 0; i--) {
+        tabla.removeRow(i);
+    }
+    
+}
+    private void cargarDatosTabla() {
+    borrarFilasTabla();
+    
+    Materia materiaSeleccionada = (Materia) materiaCombo.getSelectedItem();
+    
+    if (materiaSeleccionada != null) {
+        List<Alumno> alumnos = id.obtenerAlumnosXMateria(materiaSeleccionada.getIdMateria());
+        
+        for (Alumno alumno : alumnos) {
+            Object[] fila = {
+                alumno.getIdAlumno(),
+                alumno.getDni(),
+                alumno.getApellido(),
+                alumno.getNombre()
+            };
+            tabla.addRow(fila);
+        }
+    }
+}
     
     private void crearCabecera() {
         tabla.addColumn("ID");
         tabla.addColumn("DNI");
         tabla.addColumn("Apellido");
         tabla.addColumn("Nombre");
-        tablaMaterias_jTable.setModel(tabla);
+        tablaMaterias.setModel(tabla);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -158,6 +194,6 @@ public class ListadoAlumnosPorMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label_titulo;
     private javax.swing.JComboBox<Materia> materiaCombo;
     private javax.swing.JButton salir_btn;
-    private javax.swing.JTable tablaMaterias_jTable;
+    private javax.swing.JTable tablaMaterias;
     // End of variables declaration//GEN-END:variables
 }
